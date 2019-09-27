@@ -1,0 +1,21 @@
+{
+  "name": "rm-ban",
+  "version": "1.0.0",
+  "description": "express middleware to handle banned users (based on ip)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafipiccolo/raf-logger.git"
+  },
+  "author": "Raphael Piccolo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafipiccolo/raf-logger/issues"
+  },
+  "homepage": "https://github.com/rafipiccolo/raf-logger#readme",
+  "dependencies": {
+  }
+}
