@@ -78,7 +78,7 @@ module.exports = function (app, logger) {
 
         // if ip déjà banni
         var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
-        if (bans[ip]) return res.redirect('/ban');
+        if (bans.indexOf(ip) != -1) return res.redirect('/ban');
 
         next();
     };
@@ -94,7 +94,7 @@ module.exports = function (app, logger) {
             method: req.method,
             userAgent: req.get('user-agent'),
         });
-        bans[ip] = 1;
+        bans.push(ip);
 
         res.redirect('/ban');
     }
