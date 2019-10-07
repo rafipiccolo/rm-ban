@@ -10,10 +10,14 @@ module.exports = function (app, logger) {
     var bansrefresh = null;
     function getBanLoop() {
         logger.getBans((err, thebans) => {
-            if (err) logger.error(pkg.name, 'impossible to get ban list', { err: err });
+            if (err) {
+                logger.error(pkg.name, 'error getting bans', { err: err });
+            }
 
-            bans = thebans;
-            bansrefresh = new Date();
+            if (thebans) {
+                bans = thebans;
+                bansrefresh = new Date();
+            }
 
             setTimeout(() => {
                 getBanLoop();
@@ -26,6 +30,9 @@ module.exports = function (app, logger) {
     // routes par defaut
     app.get('/ban', function (req, res, next) {
         res.sendFile(__dirname + '/ban.html');
+    });
+    app.get('/ip', function (req, res, next) {
+        res.send((req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim());
     });
     app.get('/ban.jpg', function (req, res, next) {
         res.sendFile(__dirname + '/ban.jpg');
