@@ -1,6 +1,6 @@
 {
   "name": "rm-ban",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "express middleware to handle banned users (based on ip)",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,8 @@
     "url": "https://github.com/rafipiccolo/raf-logger/issues"
   },
   "homepage": "https://github.com/rafipiccolo/raf-logger#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "raf-logger": "^1.1.1"
   }
 }

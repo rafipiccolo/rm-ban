@@ -53,8 +53,6 @@ module.exports = function (app, logger) {
 
         // si cherche des fichiers chelou
         if (
-            // req.originalUrl.match(/^\/.*\.php$/) ||
-            // req.originalUrl.match(/^\/.*\.html?$/) ||
             req.originalUrl.match(/^\/.*\.ini$/) ||
             req.originalUrl.match(/^\/.*\.do$/) ||
             req.originalUrl.match(/^\/.*\.aspx?$/) ||
@@ -75,6 +73,9 @@ module.exports = function (app, logger) {
             req.originalUrl.match(/^\/config\./)
         )
             return req.ban('url interdite ' + req.originalUrl);
+            
+        if ((!req.get('user-agent') || req.get('user-agent').toLowerCase().indexOf('google') == -1) && (req.originalUrl.match(/^\/.*\.php$/) || req.originalUrl.match(/^\/.*\.html?$/)))
+            return req.ban('url interdite ' + req.originalUrl);
 
         // if ip déjà banni
         var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
@@ -93,6 +94,7 @@ module.exports = function (app, logger) {
             url: req.protocol + '://' + req.host + req.originalUrl,
             method: req.method,
             userAgent: req.get('user-agent'),
+            referrer: req.get('referrer'),
         });
         bans.push(ip);
 
