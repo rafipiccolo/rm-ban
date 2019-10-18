@@ -61,6 +61,7 @@ module.exports = function (app, logger) {
             req.originalUrl.match(/^\/cgi-bin$/) ||
             req.originalUrl.match(/^\/joomla/) ||
             req.originalUrl.match(/^\/phpmyadmin/) ||
+            req.originalUrl.match(/^\/pma/) ||
             req.originalUrl.match(/^\/sqlite/) ||
             req.originalUrl.match(/^\/webdav/) ||
             req.originalUrl.match(/^\/drupal/) ||
@@ -73,9 +74,9 @@ module.exports = function (app, logger) {
             req.originalUrl.match(/^\/config\./)
         )
             return req.ban('url interdite ' + req.originalUrl);
-            
-        if ((!req.get('user-agent') || req.get('user-agent').toLowerCase().indexOf('google') == -1) && (req.originalUrl.match(/^\/.*\.php$/) || req.originalUrl.match(/^\/.*\.html?$/)))
-            return req.ban('url interdite ' + req.originalUrl);
+        
+        // if ((!req.get('user-agent') || req.get('user-agent').toLowerCase().indexOf('google') == -1) && (req.originalUrl.match(/^\/.*\.php$/) || req.originalUrl.match(/^\/.*\.html?$/)))
+        //     return req.ban('url interdite ' + req.originalUrl);
 
         // if ip déjà banni
         var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
