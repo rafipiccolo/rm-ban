@@ -23,7 +23,7 @@ module.exports = function (app, logger) {
                 getBanLoop();
             }, 60000)
         });
-    };
+    }
     if (logger) getBanLoop();
     
     
