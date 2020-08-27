@@ -18,6 +18,6 @@
   "homepage": "https://github.com/rafipiccolo/rm-ban#readme",
   "dependencies": {},
   "devDependencies": {
-    "raf-logger": "^1.3.2"
+    "raf-logger": "^1.3.4"
   }
 }
