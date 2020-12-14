@@ -4,7 +4,7 @@ express middleware to handle banned users (based on ip)
 
 # Install
 
-	$> npm -g install rm-ban
+    $> npm -g install rm-ban
 
 # Usage
 

@@ -16,8 +16,8 @@
         "url": "https://github.com/rafipiccolo/rm-ban/issues"
     },
     "homepage": "https://github.com/rafipiccolo/rm-ban#readme",
-    "dependencies": {},
     "devDependencies": {
+        "prettier": "^2.2.1",
         "raf-logger": "^1.3.4"
     }
 }

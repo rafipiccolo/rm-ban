@@ -1,11 +1,11 @@
 'use strict';
 
-var pkg = require('./package.json')
+var pkg = require('./package.json');
 
 module.exports = function (app, logger) {
     /*
-    * refresh local ban list
-    */
+     * refresh local ban list
+     */
     var bans = [];
     var bansrefresh = null;
     function getBanLoop() {
@@ -21,12 +21,11 @@ module.exports = function (app, logger) {
 
             setTimeout(() => {
                 getBanLoop();
-            }, 60000)
+            }, 60000);
         });
     }
     if (logger) getBanLoop();
-    
-    
+
     // routes par defaut
     app.get('/ban', function (req, res, next) {
         res.sendFile(__dirname + '/ban.html');
@@ -40,7 +39,6 @@ module.exports = function (app, logger) {
     app.get('/bans', function (req, res, next) {
         res.send({ bans: bans, bansrefresh: bansrefresh });
     });
-
 
     // banni les gens
     return function (req, res, next) {
@@ -74,7 +72,7 @@ module.exports = function (app, logger) {
             req.originalUrl.match(/^\/config\./)
         )
             return req.ban('url interdite ' + req.originalUrl);
-        
+
         // if ((!req.get('user-agent') || req.get('user-agent').toLowerCase().indexOf('google') == -1) && (req.originalUrl.match(/^\/.*\.php$/) || req.originalUrl.match(/^\/.*\.html?$/)))
         //     return req.ban('url interdite ' + req.originalUrl);
 
@@ -88,18 +86,18 @@ module.exports = function (app, logger) {
     function ban(reason, req, res) {
         // on banni l'ip
         var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
-        if (logger) logger.ban(pkg.name, reason, {
-            userId: req.session && req.session.user ? req.session.user.id : null,
-            userEmail: req.session && req.session.user ? req.session.user.email : null,
-            ip: ip,
-            url: req.protocol + '://' + req.host + req.originalUrl,
-            method: req.method,
-            userAgent: req.get('user-agent'),
-            referrer: req.get('referrer'),
-        });
+        if (logger)
+            logger.ban(pkg.name, reason, {
+                userId: req.session && req.session.user ? req.session.user.id : null,
+                userEmail: req.session && req.session.user ? req.session.user.email : null,
+                ip: ip,
+                url: req.protocol + '://' + req.host + req.originalUrl,
+                method: req.method,
+                userAgent: req.get('user-agent'),
+                referrer: req.get('referrer'),
+            });
         bans.push(ip);
 
         res.redirect('/ban');
     }
-}
-
+};
