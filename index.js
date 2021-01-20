@@ -28,13 +28,13 @@ module.exports = function (app, logger) {
 
     // routes par defaut
     app.get('/ban', function (req, res, next) {
-        res.sendFile(`${__dirname  }/ban.html`);
+        res.sendFile(`${__dirname}/ban.html`);
     });
     app.get('/ip', function (req, res, next) {
         res.send((req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim());
     });
     app.get('/ban.jpg', function (req, res, next) {
-        res.sendFile(`${__dirname  }/ban.jpg`);
+        res.sendFile(`${__dirname}/ban.jpg`);
     });
     app.get('/bans', function (req, res, next) {
         res.send({ bans, bansrefresh });
@@ -71,7 +71,7 @@ module.exports = function (app, logger) {
             req.originalUrl.match(/^\/wp-admin/) ||
             req.originalUrl.match(/^\/config\./)
         )
-            return req.ban(`url interdite ${  req.originalUrl}`);
+            return req.ban(`url interdite ${req.originalUrl}`);
 
         // if ((!req.get('user-agent') || req.get('user-agent').toLowerCase().indexOf('google') == -1) && (req.originalUrl.match(/^\/.*\.php$/) || req.originalUrl.match(/^\/.*\.html?$/)))
         //     return req.ban('url interdite ' + req.originalUrl);
@@ -91,7 +91,7 @@ module.exports = function (app, logger) {
                 userId: req.session && req.session.user ? req.session.user.id : null,
                 userEmail: req.session && req.session.user ? req.session.user.email : null,
                 ip,
-                url: `${req.protocol  }://${  req.host  }${req.originalUrl}`,
+                url: `${req.protocol}://${req.host}${req.originalUrl}`,
                 method: req.method,
                 userAgent: req.get('user-agent'),
                 referrer: req.get('referrer'),
