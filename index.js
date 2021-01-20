@@ -11,7 +11,7 @@ module.exports = function (app, logger) {
     function getBanLoop() {
         logger.getBans((err, thebans) => {
             if (err) {
-                logger.error(pkg.name, 'error getting bans', { err: err });
+                logger.error(pkg.name, 'error getting bans', { err });
             }
 
             if (thebans) {
@@ -37,7 +37,7 @@ module.exports = function (app, logger) {
         res.sendFile(__dirname + '/ban.jpg');
     });
     app.get('/bans', function (req, res, next) {
-        res.send({ bans: bans, bansrefresh: bansrefresh });
+        res.send({ bans, bansrefresh });
     });
 
     // banni les gens
@@ -90,7 +90,7 @@ module.exports = function (app, logger) {
             logger.ban(pkg.name, reason, {
                 userId: req.session && req.session.user ? req.session.user.id : null,
                 userEmail: req.session && req.session.user ? req.session.user.email : null,
-                ip: ip,
+                ip,
                 url: req.protocol + '://' + req.host + req.originalUrl,
                 method: req.method,
                 userAgent: req.get('user-agent'),
