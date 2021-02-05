@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var Logger = require('raf-logger');
 var config = {
